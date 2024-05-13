@@ -33,8 +33,8 @@ const Footer = () => {
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <h3 className="text-base font-bold mb-2">About Us</h3>
             <p className="mb-2">
-              Valvitek is an E-commerce store that aims to guarantee it's users
-              trust and ease of access when it comes to online shopping.
+              Valvitek is an E-commerce store that aims to guarantee it&apos;s
+              users trust and ease of access when it comes to online shopping.
             </p>
             <p>&copy; {new Date().getFullYear()} E-Shop. All rights Reserved</p>
           </div>

@@ -56,7 +56,7 @@ const CartClient = () => {
           </div>
 
           <p className="text-slate-500">
-            Taxes and shipping calculated at checkout
+            Taxes and shipping is calculated at checkout
           </p>
           <Button label="Checkout" onClick={() => {}} />
           <Link

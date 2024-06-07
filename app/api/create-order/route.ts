@@ -3,7 +3,6 @@ import { CartProductType } from "@/app/product/[productId]/ProductDetails";
 import axios from "axios";
 import { NextResponse } from "next/server";
 import prisma from "@/libs/prismadb"
-import { error } from "console";
 
 
 
@@ -14,10 +13,7 @@ const itemTotal = item.price * item.quantity
 
 return acc + itemTotal
     }, 0)
-
-    const price:any =  Math.floor(totalPrice)
-
-    return price
+    return totalPrice
 }
 
 export async function POST(request: Request) {
@@ -45,40 +41,14 @@ export async function POST(request: Request) {
     
         //create the intent
 //make the Api call
-const params = {
-    email: currentUser.email,
-    amount: total
-  };
-  
-  const options = {
-    headers: {
-      Authorization: `Bearer ${process.env.PAYSTACK_PUBLIC_KEY}`,
-      'Content-Type': 'application/json'
-    }
-  };
-  
- 
-    try {
-      const response = await axios.post('https://api.paystack.co/transaction/initialize', params, options);
-      const responseData = response.data;
-      // You can use responseData here or return it to use later
-  
-  
-      // Do something with responseData
 
-      console.log('Transaction initialized:', responseData);
   
   await prisma.order.create({
       data: orderData,
   })
-  return NextResponse.json(responseData);
+ 
   
-  
-    } catch (error) {
-      console.error(error);
-      throw error; // Re-throw the error if you need to handle it elsewhere
-    }
-  }
+}
 
 catch(error)  {
     // Handle any errors that were thrown

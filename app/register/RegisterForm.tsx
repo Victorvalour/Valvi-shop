@@ -82,7 +82,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
         label="Continue with Google"
         icon={AiOutlineGoogle}
         onClick={() => {
-          signIn("google");
+          signIn("google", { callbackUrl: "/", redirect: true });
         }}
       />
       <hr className="bg-slate-300 w-full h-px" />

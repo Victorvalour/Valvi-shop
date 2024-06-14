@@ -4,7 +4,7 @@ import CheckoutClient from "./CheckoutClient";
 
 const Checkout = () => {
   return (
-    <div className="p-8">
+    <div className="py-8 md:p-8">
       <Container>
         <CheckoutClient />
       </Container>

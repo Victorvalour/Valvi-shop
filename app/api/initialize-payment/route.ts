@@ -15,7 +15,7 @@ const itemTotal = item.price * item.quantity
 return acc + itemTotal
     }, 0)
 
-    const price:any =  Math.round((totalPrice + Number.EPSILON) * 100) / 10000
+    const price:any =  Math.round((totalPrice + Number.EPSILON) * 100) /100
 
     return price
 }
@@ -32,6 +32,7 @@ export async function POST(request: Request) {
     const body = await request.json()
     const {items} = body
     const total = calculateOrderAmount(items) * 100
+    const {callback_url} = body
 
     const orderData: any = {
         user: {connect: {id: currentUser.id}},
@@ -44,18 +45,33 @@ export async function POST(request: Request) {
 
     
         //create the intent
+//make the Api call
+const params = {
+    email: currentUser.email,
+    amount: total,
+    callback_url:  callback_url
+  };
+  
+  const options = {
+    headers: {
+      Authorization: `Bearer ${process.env.PAYSTACK_PUBLIC_KEY}`,
+      'Content-Type': 'application/json'
+    }
+  };
   
  
     try {
-      console.log(orderData.amount)
-   //Add the order to the database
+      const response = await axios.post('https://api.paystack.co/transaction/initialize', params, options);
+      const responseData = response.data;
+      // You can use responseData here or return it to use later
   
-  await prisma.order.create({
-      data: orderData,
-  })
-  return NextResponse.json({status: 201,
-    message: "Order has been registered"
-  });
+  
+      // Do something with responseData
+
+      console.log('Transaction initialized:', responseData);
+  
+
+  return NextResponse.json(responseData);
   
   
     } catch (error) {
@@ -66,7 +82,7 @@ export async function POST(request: Request) {
 
 catch(error)  {
     // Handle any errors that were thrown
-    console.error('Error adding order to database', error);
+    console.error('Error initializing transaction:', error);
     return NextResponse.json({error: "Internal server errrr"})
   };
 

@@ -1,3 +1,4 @@
+const random = "Var"
 /* import { NextApiRequest, NextApiResponse } from "next";
 import { buffer } from 'micro';
 import crypto from 'crypto';

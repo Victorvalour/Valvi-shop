@@ -30,12 +30,14 @@ import RadioInput from "../components/inputs/radio";
 import { FaCcVisa } from "react-icons/fa";
 import { BsCashCoin } from "react-icons/bs";
 import { formatprice } from "@/utils/formatPrice";
+import PaymentSuccess from "./paymentSuccess";
 
 const CheckoutClient = () => {
   const { cartProducts, paymentIntent, handleSetPaymentIntent } = useCart();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
+  const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
 
   const router = useRouter();
 
@@ -73,7 +75,7 @@ const CheckoutClient = () => {
     toast(JSON.stringify(data));
     console.log(data);
 
-    if (cartProducts) {
+    if (cartProducts && data.paymentMethod === "pay-now") {
       setLoading(true);
       setError(false);
 
@@ -96,6 +98,37 @@ const CheckoutClient = () => {
         .then((data) => {
           console.log(data.data.authorization_url);
           window.location.href = data.data.authorization_url;
+          setIsPaymentSuccessful(true);
+          return null;
+        })
+        .catch((error) => {
+          setError(true);
+          console.log("Error", error);
+          toast.error("Something went wrong");
+        });
+    } else if (cartProducts && data.paymentMethod === "pay-on-delivery") {
+      setLoading(true);
+      setError(false);
+
+      fetch("/api/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "Application/json" },
+        body: JSON.stringify({
+          items: cartProducts,
+        }),
+      })
+        .then((res) => {
+          setLoading(false);
+          if (res.status === 401) {
+            return router.push("/login");
+          }
+
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          toast.success("Your order has been placed successfully.");
+          setIsPaymentSuccessful(true);
           return null;
         })
         .catch((error) => {
@@ -106,7 +139,7 @@ const CheckoutClient = () => {
     }
   };
 
-  useEffect(() => {
+  /*  useEffect(() => {
     if (cartProducts) {
       setLoading(true);
       setError(false);
@@ -116,7 +149,7 @@ const CheckoutClient = () => {
         headers: { "Content-Type": "Application/json" },
         body: JSON.stringify({
           items: cartProducts,
-          callback_url: "https://valvi-shop.vercel.app/",
+          callback_url: "http://localhost:3000/checkout",
           reference: paymentIntent,
         }),
       })
@@ -137,12 +170,12 @@ const CheckoutClient = () => {
           toast.error("Something went wrong");
         });
     }
-  }, [cartProducts, paymentIntent]);
+  }, [cartProducts, paymentIntent]); */
 
   const isLoading = false;
 
   return (
-    <form /* onSubmit={handleSubmit(onSubmit)} */>
+    <form /* onSubmit={handleSubmit(onSubmit)} */ className="relative">
       <div className="flex flex-col">
         <div className="mx-auto ">
           <Heading title="Checkout" />
@@ -316,6 +349,7 @@ const CheckoutClient = () => {
           </div>
         </div>
       </div>
+      {isPaymentSuccessful && <PaymentSuccess />}
     </form>
   );
 };

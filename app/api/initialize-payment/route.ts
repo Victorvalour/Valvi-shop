@@ -4,6 +4,7 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 import prisma from "@/libs/prismadb"
 import { error } from "console";
+import { PaymentType } from "@prisma/client";
 
 
 
@@ -30,7 +31,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json()
-    const {items} = body
+    const {items, payment_reference} = body
     const total = calculateOrderAmount(items) * 100
     const {callback_url} = body
 
@@ -40,9 +41,16 @@ export async function POST(request: Request) {
         currency: "NGN",
         status: "pending",
         deliveryStatus: "pending",
+        paymentReference:  payment_reference,
+        paymentType: "PAY_NOW",
         products: items
     }
 
+    if (payment_reference) {
+      //upadate an existing payment
+    }
+
+   else {
     
         //create the intent
 //make the Api call
@@ -70,13 +78,23 @@ const params = {
 
       console.log('Transaction initialized:', responseData);
   
+      orderData.paymentReference = responseData.data.reference
+
+      await prisma.order.create({
+        data: orderData,
+    })
+   
+
 
   return NextResponse.json(responseData);
+
+    
   
   
     } catch (error) {
       console.error(error);
       throw error; // Re-throw the error if you need to handle it elsewhere
+      } 
     }
   }
 
@@ -86,5 +104,5 @@ catch(error)  {
     return NextResponse.json({error: "Internal server errrr"})
   };
 
-
+  
     }

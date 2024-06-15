@@ -98,7 +98,7 @@ const CheckoutClient = () => {
         .then((data) => {
           console.log(data.data.authorization_url);
           window.location.href = data.data.authorization_url;
-          setIsPaymentSuccessful(true);
+
           return null;
         })
         .catch((error) => {

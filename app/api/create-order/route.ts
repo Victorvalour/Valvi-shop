@@ -41,13 +41,32 @@ export async function POST(request: Request) {
         currency: "NGN",
         status: "",
         deliveryStatus: "pending",
-        paymentReference:  "N/A",
         paymentType: "PAY_ON_DELIVERY",
         products: items
     }
 
     if (payment_reference) {
       //upadate an existing payment
+      try {
+        console.log("There is a payment reference")
+
+        /*    await prisma.order.create({
+             data: orderData,
+         }) */
+
+     
+       return NextResponse.json({status: 201,
+         message: "There is payment ref"
+       });
+     
+         
+       
+       
+         } catch (error) {
+           console.error(error);
+           throw error; // Re-throw the error if you need to handle it elsewhere
+           } 
+     
     }
 
    else {
@@ -93,7 +112,7 @@ const params = {
 
 catch(error)  {
     // Handle any errors that were thrown
-    console.error('Error initializing transaction:', error);
+    console.error('Error Creating order:', error);
     return NextResponse.json({error: "Internal server errrr"})
   };
 

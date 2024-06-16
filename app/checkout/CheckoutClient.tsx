@@ -2,7 +2,7 @@
 
 import { useCart } from "@/hooks/useCart";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Heading from "../components/Heading";
 import { IoCardSharp } from "react-icons/io5";
@@ -167,7 +167,7 @@ const CheckoutClient = () => {
   const isLoading = false;
 
   return (
-    <Suspense fallback={<DottedLoadingSpinner />}>
+    <div>
       {loading ? (
         <DottedLoadingSpinner />
       ) : (
@@ -348,7 +348,7 @@ const CheckoutClient = () => {
           {isPaymentSuccessful && <PaymentSuccess />}
         </form>
       )}
-    </Suspense>
+    </div>
   );
 };
 

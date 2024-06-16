@@ -14,18 +14,7 @@ import {
   useForm,
 } from "react-hook-form";
 import Button from "../components/Button";
-import RadioButton from "../components/inputs/radio";
-import { RadioGroup } from "@/components/ui/radio-group";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import RadioInput from "../components/inputs/radio";
 import { FaCcVisa } from "react-icons/fa";
 import { BsCashCoin } from "react-icons/bs";

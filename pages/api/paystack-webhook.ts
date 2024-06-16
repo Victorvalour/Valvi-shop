@@ -1,5 +1,5 @@
-const random = "Var"
-/* import { NextApiRequest, NextApiResponse } from "next";
+
+ import { NextApiRequest, NextApiResponse } from "next";
 import { buffer } from 'micro';
 import crypto from 'crypto';
 
@@ -34,10 +34,14 @@ export default async function handler(
     switch (event.event) {
       case 'charge.success':
         // Handle successful charge event
+       
+        if (typeof event.data.reference === "string") {
+        await prisma?.order.update({
+           where: {paymentReference: event.data.reference},
+           data: {status: "Payment complete"}})
+        
+        }
         console.log('Charge was successful:', event.data);
-        await prisma?.order.update(
-            where: {payment}
-        )
         break;
       case 'subscription.create':
         // Handle subscription creation event
@@ -54,4 +58,4 @@ export default async function handler(
     res.status(405).end('Method Not Allowed');
   }
 
-} */
+} 

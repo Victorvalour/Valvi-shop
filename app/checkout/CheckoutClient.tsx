@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/hooks/useCart";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Heading from "../components/Heading";
@@ -31,15 +31,18 @@ import { FaCcVisa } from "react-icons/fa";
 import { BsCashCoin } from "react-icons/bs";
 import { formatprice } from "@/utils/formatPrice";
 import PaymentSuccess from "./paymentSuccess";
+import axios from "axios";
+import DottedLoadingSpinner from "../components/loading-spinner/SpinnerDotted";
 
 const CheckoutClient = () => {
   const { cartProducts, paymentIntent, handleSetPaymentIntent } = useCart();
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [clientSecret, setClientSecret] = useState("");
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
 
   const router = useRouter();
+  const searchParams: any = useSearchParams();
 
   const { cartTotalQty, cartTotalAmount } = useCart();
 
@@ -107,8 +110,8 @@ const CheckoutClient = () => {
           toast.error("Something went wrong");
         });
     } else if (cartProducts && data.paymentMethod === "pay-on-delivery") {
-      setLoading(true);
       setError(false);
+      setLoading(true);
 
       fetch("/api/create-order", {
         method: "POST",
@@ -128,6 +131,7 @@ const CheckoutClient = () => {
         .then((data) => {
           console.log(data);
           toast.success("Your order has been placed successfully.");
+          setLoading(false);
           setIsPaymentSuccessful(true);
           return null;
         })
@@ -138,43 +142,44 @@ const CheckoutClient = () => {
         });
     }
   };
-
-  /*  useEffect(() => {
-    if (cartProducts) {
-      setLoading(true);
-      setError(false);
-
-      fetch("/api/create-payment-intent", {
-        method: "POST",
-        headers: { "Content-Type": "Application/json" },
-        body: JSON.stringify({
-          items: cartProducts,
-          callback_url: "http://localhost:3000/checkout",
-          reference: paymentIntent,
-        }),
-      })
-        .then((res) => {
-          setLoading(false);
-          if (res.status === 401) {
-            return router.push("/login");
-          }
-
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          setError(true);
-          console.log("Error", error);
-          toast.error("Something went wrong");
-        });
+  useEffect(() => {
+    const reference = searchParams.get("reference");
+    if (reference) {
+      verifyTransaction(reference);
+    } else {
+      setLoading(false);
     }
-  }, [cartProducts, paymentIntent]); */
+  }, [searchParams]);
+
+  const verifyTransaction = async (reference: string) => {
+    setLoading(true);
+    setError(false);
+
+    try {
+      const response = await axios.get(
+        `/api/verify-payment?reference=${reference}`
+      );
+      if (response.data.status === "success") {
+        setIsPaymentSuccessful(true);
+        setLoading(false);
+        toast.success("Payment was successful!");
+      } else {
+        setError(true);
+        toast.error("Payment verification failed");
+      }
+    } catch (error) {
+      setError(true);
+      toast.error("Something went wrong while verifying payment");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const isLoading = false;
 
-  return (
+  return loading ? (
+    <DottedLoadingSpinner />
+  ) : (
     <form /* onSubmit={handleSubmit(onSubmit)} */ className="relative">
       <div className="flex flex-col">
         <div className="mx-auto ">

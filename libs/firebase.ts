@@ -7,7 +7,7 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCLmJp2kUr7wV_WzhJHdKgABgLWBKTOGkE",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "valvi-shop.firebaseapp.com",
   projectId: "valvi-shop",
   storageBucket: "valvi-shop.appspot.com",

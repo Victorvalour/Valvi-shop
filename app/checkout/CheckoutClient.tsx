@@ -42,11 +42,12 @@ const CheckoutClient = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      streetAddress: "",
+      line1: "",
       city: "",
       state: "",
       phoneNumber: "",
       paymentMethod: "",
+      country: "",
     },
   });
 
@@ -64,7 +65,7 @@ const CheckoutClient = () => {
   }); */
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    toast(JSON.stringify(data));
+    // toast(JSON.stringify(data));
     console.log(data);
 
     if (cartProducts && data.paymentMethod === "pay-now") {
@@ -77,6 +78,13 @@ const CheckoutClient = () => {
         body: JSON.stringify({
           items: cartProducts,
           reference: paymentIntent,
+          address: {
+            city: data.city,
+            country: "Nigeria",
+            line1: data.line1,
+            postal_code: "unknown",
+            state: data.state,
+          },
         }),
       })
         .then((res) => {
@@ -107,6 +115,13 @@ const CheckoutClient = () => {
         headers: { "Content-Type": "Application/json" },
         body: JSON.stringify({
           items: cartProducts,
+          address: {
+            city: data.city,
+            country: "Nigeria",
+            line1: data.line1,
+            postal_code: "unknown",
+            state: data.state,
+          },
         }),
       })
         .then((res) => {
@@ -191,7 +206,7 @@ const CheckoutClient = () => {
                   </p>
 
                   <Input
-                    id="streetAddress"
+                    id="line1"
                     label="Street Address"
                     disabled={isLoading}
                     register={register}

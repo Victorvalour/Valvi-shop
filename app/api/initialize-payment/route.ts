@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json()
-    const {items, payment_reference} = body
+    const {items, payment_reference, address} = body
     const total = calculateOrderAmount(items) * 100
     const {callback_url} = body
 
@@ -43,7 +43,8 @@ export async function POST(request: Request) {
         deliveryStatus: "pending",
         paymentReference:  payment_reference,
         paymentType: "PAY_NOW",
-        products: items
+        products: items,
+        address: address
     }
 
     if (payment_reference) {
@@ -58,7 +59,8 @@ export async function POST(request: Request) {
 const params = {
     email: currentUser.email,
     amount: total,
-    callback_url:  callback_url
+    callback_url:  callback_url,
+    
   };
   
   const options = {

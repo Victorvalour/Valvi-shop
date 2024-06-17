@@ -1,3 +1,4 @@
+"use client";
 import { ThreeCircles } from "react-loader-spinner";
 
 const DottedLoadingSpinner = () => {

@@ -31,45 +31,44 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json()
-    const {items, payment_reference} = body
+    const {items, address} = body
     const total = calculateOrderAmount(items) * 100
     const {callback_url} = body
 
+    const  generateUniqueDateString = () => {
+      var now = new Date();
+      
+      // Format the date and time components to ensure they are zero-padded if needed
+      var year = now.getFullYear().toString();
+      var month = ('0' + (now.getMonth() + 1)).slice(-2); // Months are 0-based
+      var day = ('0' + now.getDate()).slice(-2);
+      var hours = ('0' + now.getHours()).slice(-2);
+      var minutes = ('0' + now.getMinutes()).slice(-2);
+      var seconds = ('0' + now.getSeconds()).slice(-2);
+      var milliseconds = ('00' + now.getMilliseconds()).slice(-3);
+  
+
+      var uniqueDateStr = year + month + day + hours + minutes + seconds + milliseconds;
+      
+      return uniqueDateStr;
+  }
+
+    const date = generateUniqueDateString()
+
+    const dateRef = "No_ref_" + date
     const orderData: any = {
         user: {connect: {id: currentUser.id}},
         amount: total,
         currency: "NGN",
         status: "",
         deliveryStatus: "pending",
+        paymentReference:  dateRef,
         paymentType: "PAY_ON_DELIVERY",
-        products: items
+        products: items,
+        address: address
     }
 
-    if (payment_reference) {
-      //upadate an existing payment
-      try {
-        console.log("There is a payment reference")
 
-        /*    await prisma.order.create({
-             data: orderData,
-         }) */
-
-     
-       return NextResponse.json({status: 201,
-         message: "There is payment ref"
-       });
-     
-         
-       
-       
-         } catch (error) {
-           console.error(error);
-           throw error; // Re-throw the error if you need to handle it elsewhere
-           } 
-     
-    }
-
-   else {
     
         //create the intent
 //make the Api call
@@ -107,7 +106,7 @@ const params = {
       console.error(error);
       throw error; // Re-throw the error if you need to handle it elsewhere
       } 
-    }
+    
   }
 
 catch(error)  {

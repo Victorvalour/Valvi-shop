@@ -160,9 +160,11 @@ const AddProductForm = () => {
     axios
       .post("/api/product", productData)
       .then(() => {
-        toast.success("Product created successfully");
         setIsProductCreated(true);
+        toast.success("Product created successfully");
+
         router.refresh();
+        window.location.reload();
       })
       .catch(() => {
         toast.error("something went wrong");

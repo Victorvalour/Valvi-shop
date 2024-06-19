@@ -11,7 +11,6 @@ const PaymentSuccess = () => {
       </div>
       <p className="mt-4 text-2xl font-semibold">Checkout Successful</p>
       <div className="z-10 mt-6">
-        {" "}
         <Button
           label="View your orders"
           onClick={() => {

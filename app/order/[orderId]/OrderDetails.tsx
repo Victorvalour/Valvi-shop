@@ -7,6 +7,7 @@ import { Order } from "@prisma/client";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { MdAccessTimeFilled, MdDeliveryDining, MdDone } from "react-icons/md";
+import OrderItem from "./OrderItem";
 
 interface OrderDetailsProps {
   order: Order;
@@ -25,6 +26,29 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
       <div>
         Total Amount:{" "}
         <span className="font-bold">{formatprice(order.amount)}</span>
+      </div>
+      <div className="flex gap-2 items-center">
+        <div> Payment Type: </div>
+
+        <div>
+          {order.paymentType === "PAY_NOW" ? (
+            <Status
+              text="online"
+              icon={MdAccessTimeFilled}
+              bg="bg-slate-200"
+              color="text-slate-700"
+            />
+          ) : order.paymentType === "PAY_ON_DELIVERY" ? (
+            <Status
+              text="cash"
+              icon={MdDone}
+              bg="bg-green-200"
+              color="text-green-700"
+            />
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
       <div className="flex gap-2 items-center">
         <div> Payment Status: </div>
@@ -61,7 +85,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
               bg="bg-slate-200"
               color="text-slate-700"
             />
-          ) : order.deliveryStatus === "complete" ? (
+          ) : order.deliveryStatus === "dispatched" ? (
             <Status
               text="dispatched"
               icon={MdDeliveryDining}
@@ -89,6 +113,10 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
           <div className="justify-self-center">QTY</div>
           <div className="justify-self-end">TOTAL</div>
         </div>
+        {order.products &&
+          order.products.map((item) => {
+            return <OrderItem key={item.id} item={item}></OrderItem>;
+          })}
       </div>
     </div>
   );

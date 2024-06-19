@@ -15,7 +15,7 @@ const PaymentSuccess = () => {
         <Button
           label="View your orders"
           onClick={() => {
-            router.push("/");
+            router.push("/orders");
           }}
         />
       </div>

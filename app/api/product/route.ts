@@ -31,9 +31,11 @@ export async function PUT(request: Request) {
 
     const currentUser = await getCurrentUser()
 
-    if (!currentUser || currentUser.role !== "ADMIN") {
-return NextResponse.error()
-    }
+    if(!currentUser) return NextResponse.error()
+
+    if (currentUser.role !== "ADMIN") {
+        return NextResponse.error()
+            }
 
     const body = await request.json()
     const {id, inStock} = body

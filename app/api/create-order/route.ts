@@ -60,7 +60,7 @@ export async function POST(request: Request) {
         user: {connect: {id: currentUser.id}},
         amount: total,
         currency: "NGN",
-        status: "",
+        status: "pending",
         deliveryStatus: "pending",
         paymentReference:  dateRef,
         paymentType: "PAY_ON_DELIVERY",

@@ -38,7 +38,7 @@ export default async function handler(
         if (typeof event.data.reference === "string") {
         await prisma?.order.update({
            where: {paymentReference: event.data.reference},
-           data: {status: "Payment complete"}})
+           data: {status: "complete"}})
         
         }
         console.log('Charge was successful:', event.data);

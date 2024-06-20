@@ -7,6 +7,7 @@ import { getCurrentUser } from "@/actions/getCurrentUser";
 import Categories from "./Categories";
 import { Suspense } from "react";
 import DottedLoadingSpinner from "../loading-spinner/SpinnerDotted";
+import SearchBar from "./SearchBar";
 
 const redressed = Redressed({ subsets: ["latin"], weight: ["400"] });
 
@@ -24,7 +25,9 @@ const NavBar = async () => {
             >
               VALVITEK
             </Link>
-            <div className="hidden md:block">Search</div>
+            <div className="hidden md:block">
+              <SearchBar />
+            </div>
             <div className="flex items-center gap-8 md:gap-12">
               <CartCount />
               <UserMenu currentUser={currentUser} />

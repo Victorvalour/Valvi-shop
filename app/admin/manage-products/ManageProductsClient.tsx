@@ -13,12 +13,13 @@ import {
   MdRemoveRedEye,
 } from "react-icons/md";
 import ActionBtn from "@/app/components/ActionBtn";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { deleteObject, getStorage, ref } from "firebase/storage";
 import firebaseApp from "@/libs/firebase";
+import DottedLoadingSpinner from "@/app/components/loading-spinner/SpinnerDotted";
 
 interface ManageProductsClientProps {
   products: Product[];
@@ -29,6 +30,8 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
 }) => {
   const router = useRouter();
   const storage = getStorage(firebaseApp);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   let rows: any = [];
   if (products) {
@@ -118,6 +121,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
   ];
 
   const handleToggleStock = useCallback((id: string, inStock: boolean) => {
+    setIsLoading(true);
     axios
       .put("/api/product", {
         id,
@@ -126,6 +130,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
       .then((res) => {
         toast.success("Product status changed");
         router.refresh();
+        setIsLoading(false);
       })
       .catch((err) => {
         toast.error("Oops! Something went wrong");
@@ -135,6 +140,8 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
 
   const handleDelete = useCallback(async (id: string, images: any[]) => {
     toast("Deleting product, please wait...");
+
+    setIsLoading(true);
 
     const handleImageDelete = async () => {
       try {
@@ -156,6 +163,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
       .then((res) => {
         toast.success("Product deleted");
         router.refresh();
+        setIsLoading(false);
       })
       .catch((err) => {
         toast.error("failed to delete product");
@@ -163,7 +171,9 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
       });
   }, []);
 
-  return (
+  return isLoading ? (
+    <DottedLoadingSpinner />
+  ) : (
     <div className="max-w-[1250px] m-auto text-xl">
       <div className="mb-4 mt-8">
         <Heading title="Manage Products" center />

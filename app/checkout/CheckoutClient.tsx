@@ -30,6 +30,8 @@ const CheckoutClient = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
 
+  const { handleClearCart } = useCart();
+
   const router = useRouter();
   const searchParams: any = useSearchParams();
 
@@ -96,6 +98,7 @@ const CheckoutClient = () => {
           return res.json();
         })
         .then((data) => {
+          handleClearCart();
           console.log(data.data.authorization_url);
           window.location.href = data.data.authorization_url;
 
@@ -136,6 +139,7 @@ const CheckoutClient = () => {
           console.log(data);
           toast.success("Your order has been placed successfully.");
           setLoading(false);
+          handleClearCart();
           setIsPaymentSuccessful(true);
           return null;
         })

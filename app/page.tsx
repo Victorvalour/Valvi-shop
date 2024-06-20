@@ -5,14 +5,24 @@ import { truncateText } from "@/utils/truncateText";
 import ProductCard from "./components/products/ProductCard";
 import getProducts, { IProductParams } from "@/actions/getProducts";
 import NullData from "./components/NullData";
+import { GetServerSideProps } from "next";
 
 interface HomeProps {
-  searchParams: IProductParams;
+  products: any[];
 }
 
-export default async function Home({ searchParams }: HomeProps) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const searchParams: IProductParams = context.query as IProductParams;
   const products = await getProducts(searchParams);
 
+  return {
+    props: {
+      products,
+    },
+  };
+};
+
+export default async function Home({ products }: HomeProps) {
   if (products.length === 0) {
     return (
       <NullData title="Oops! No products found. Click all to clear filters" />

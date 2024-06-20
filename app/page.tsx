@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import { products } from "@/utils/products";
 import Container from "./components/Container";
 import HomeBanner from "./components/HomeBanner";
@@ -5,24 +7,14 @@ import { truncateText } from "@/utils/truncateText";
 import ProductCard from "./components/products/ProductCard";
 import getProducts, { IProductParams } from "@/actions/getProducts";
 import NullData from "./components/NullData";
-import { GetServerSideProps } from "next";
 
 interface HomeProps {
-  products: any[];
+  searchParams: IProductParams;
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const searchParams: IProductParams = context.query as IProductParams;
+export default async function Home({ searchParams }: HomeProps) {
   const products = await getProducts(searchParams);
 
-  return {
-    props: {
-      products,
-    },
-  };
-};
-
-export default async function Home({ products }: HomeProps) {
   if (products.length === 0) {
     return (
       <NullData title="Oops! No products found. Click all to clear filters" />

@@ -8,7 +8,7 @@ const DottedLoadingSpinner = () => {
         visible={true}
         height="100"
         width="100"
-        color="#03d3fc"
+        color="#0d6b09"
         ariaLabel="three-circles-loading"
         wrapperStyle={{}}
         wrapperClass=""

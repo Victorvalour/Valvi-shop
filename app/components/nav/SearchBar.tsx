@@ -36,17 +36,17 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center ">
       <input
         {...register("searchTerm")}
         autoComplete="off"
         type="text"
         placeholder="Search products"
-        className="p-2 border-gray-300 rounded-l-md focus:outline-none focus:border-[0.5px] focus:border-secondaryColor w-80"
+        className="p-2 border-secondaryColor border-[0.5px] rounded-l-md focus:outline-none focus:border-[1px] focus:border-primaryColor w-48 md:w-80"
       />
       <button
         onClick={handleSubmit(onSubmit)}
-        className="bg-primaryColor hover:opacity-80 text-white p-2 rounded-r-md"
+        className="bg-primaryColor border-primaryColor border-[1px]hover:opacity-80 text-white p-2 rounded-r-md"
       >
         Search
       </button>

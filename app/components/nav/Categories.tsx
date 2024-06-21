@@ -6,6 +6,7 @@ import Category from "./Category";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import DottedLoadingSpinner from "../loading-spinner/SpinnerDotted";
+import SearchBar from "./SearchBar";
 
 const Categories = () => {
   const params = useSearchParams();
@@ -33,6 +34,9 @@ const Categories = () => {
               />
             ))}
           </Suspense>
+        </div>
+        <div className="md:hidden w-full flex justify-center ">
+          <SearchBar />
         </div>
       </Container>
     </div>

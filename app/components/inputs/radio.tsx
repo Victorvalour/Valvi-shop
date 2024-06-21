@@ -30,7 +30,7 @@ const RadioInput: React.FC<RadioProps> = ({
         <label
           htmlFor={id}
           className={`flex gap-2 w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 ${
-            errors[group] ? "text-rose-500" : "text-slate-500"
+            errors[group] ? "text-rose-500" : "text-secondaryColor"
           }`}
         >
           <input
@@ -41,8 +41,14 @@ const RadioInput: React.FC<RadioProps> = ({
             {...register(group, { required })}
             required
             className={`w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600
-            ${errors[group] ? "border-rose-400" : "border-marker:slate-300"} ${
-              errors[group] ? "focus:border-rose-400" : "focus:border-slate-300"
+            ${
+              errors[group]
+                ? "border-rose-400"
+                : "border-marker:secondaryColor2"
+            } ${
+              errors[group]
+                ? "focus:border-rose-400"
+                : "focus:border-secondaryColor2"
             }
             `}
           />

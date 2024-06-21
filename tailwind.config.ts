@@ -28,6 +28,18 @@ const config = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
+        primaryColor: {
+          DEFAULT: "#0d6b09",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondaryColor: {
+          DEFAULT: "#47bf43",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondaryColor2: {
+          DEFAULT: "#87f283",
+          foreground: "hsl(var(--primary-foreground))",
+        },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",

@@ -85,7 +85,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
           signIn("google", { callbackUrl: "/", redirect: true });
         }}
       />
-      <hr className="bg-slate-300 w-full h-px" />
+      <hr className="bg-secondaryColor2 w-full h-px" />
 
       <Input
         id="name"

@@ -38,7 +38,7 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
 
           <div className="w-[70px]">
             <button
-              className="text-slate-500 underline"
+              className="text-secondaryColor underline"
               onClick={() => handleRemoveProductFromCart(item)}
             >
               Remove

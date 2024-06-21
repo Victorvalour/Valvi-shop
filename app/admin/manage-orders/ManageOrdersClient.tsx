@@ -99,7 +99,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
                 text="pending"
                 icon={MdAccessTimeFilled}
                 bg="bg-slate-200"
-                color="text-slate-700"
+                color="text-primaryColor"
               />
             ) : params.row.status === "complete" ? (
               <Status
@@ -127,7 +127,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
                 text="pending"
                 icon={MdAccessTimeFilled}
                 bg="bg-slate-200"
-                color="text-slate-700"
+                color="text-primaryColor"
               />
             ) : params.row.deliveryStatus === "dispatched" ? (
               <Status

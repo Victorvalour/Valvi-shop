@@ -36,7 +36,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
               text="online"
               icon={MdAccessTimeFilled}
               bg="bg-slate-200"
-              color="text-slate-700"
+              color="text-primaryColor"
             />
           ) : order.paymentType === "PAY_ON_DELIVERY" ? (
             <Status
@@ -59,7 +59,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
               text="pending"
               icon={MdAccessTimeFilled}
               bg="bg-slate-200"
-              color="text-slate-700"
+              color="text-primaryColor"
             />
           ) : order.status === "complete" ? (
             <Status
@@ -83,7 +83,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
               text="pending"
               icon={MdAccessTimeFilled}
               bg="bg-slate-200"
-              color="text-slate-700"
+              color="text-primaryColor"
             />
           ) : order.deliveryStatus === "dispatched" ? (
             <Status

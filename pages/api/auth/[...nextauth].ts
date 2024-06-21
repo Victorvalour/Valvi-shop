@@ -10,7 +10,12 @@ export const authOptions: AuthOptions = {
     providers: [
       GoogleProvider({
           clientId: process.env.GOOGLE_CLIENT_ID as string,
-          clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+          authorization: {
+            params: {
+              redirect_uri: "https://www.valvitek.com/api/auth/callback/google",
+            },
+          },
       }),
       CredentialsProvider({
           name: "credentials",

@@ -27,7 +27,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
           <Link
             href={"/"}
             className="
-          text-slate-500 flex items-center gap-1 mt-2
+          text-secondaryColor flex items-center gap-1 mt-2
           "
           >
             <MdArrowBack />
@@ -69,7 +69,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
             <span>{formatprice(cartTotalAmount)}</span>
           </div>
 
-          <p className="text-slate-500">
+          <p className="text-secondaryColor">
             Taxes and shipping is calculated at checkout
           </p>
           <Button
@@ -82,7 +82,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
           <Link
             href={"/"}
             className="
-          text-slate-500 flex items-center gap-1 mt-2
+          text-secondaryColor flex items-center gap-1 mt-2
           "
           >
             <MdArrowBack />

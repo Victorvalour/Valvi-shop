@@ -34,7 +34,7 @@ const SetColor: React.FC<SetColorProps> = ({
               >
                 <div
                   style={{ background: image.colorCode }}
-                  className="h-5 w-5 rounded-full border-[1.2px] border-slate-300 cursor-pointer"
+                  className="h-5 w-5 rounded-full border-[1.2px] border-secondaryColor2 cursor-pointer"
                 ></div>
               </div>
             );

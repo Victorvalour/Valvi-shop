@@ -35,7 +35,7 @@ const NavBar = async () => {
               </div>
             </Link>
 
-            <div className="hidden md:block">
+            <div className="hidden md:block py-2">
               <SearchBar />
             </div>
             <div className="flex items-center gap-8 md:gap-12">

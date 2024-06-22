@@ -205,9 +205,9 @@ const CheckoutClient = () => {
                     </p>
                   </div>
                   <hr />
-                  <p className="text-sm  text-red-500">
+                  {/* <p className="text-sm  text-red-500">
                     Delivery is within Nigeria *
-                  </p>
+                  </p> */}
 
                   <Input
                     id="line1"

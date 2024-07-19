@@ -1,4 +1,4 @@
-"use client";
+/* "use client";
 
 import {
   CartProductType,
@@ -46,3 +46,4 @@ const SetColor: React.FC<SetColorProps> = ({
 };
 
 export default SetColor;
+ */

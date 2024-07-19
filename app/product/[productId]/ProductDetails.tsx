@@ -2,7 +2,7 @@
 
 import Button from "@/app/components/Button";
 import ProductImage from "@/app/components/products/ProductImage";
-import SetColor from "@/app/components/products/SetColor";
+
 import SetQuantity from "@/app/components/products/SetQuantity";
 import { useCart } from "@/hooks/useCart";
 import { Rating } from "@mui/material";

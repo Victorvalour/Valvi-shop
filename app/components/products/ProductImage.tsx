@@ -2,38 +2,39 @@
 
 import {
   CartProductType,
-  SelectedImgType,
+  SelectedImageType,
 } from "@/app/product/[productId]/ProductDetails";
 import Image from "next/image";
 
 interface ProductImageProps {
-  cartProduct: CartProductType;
   product: any;
-  handleColorSelect: (value: SelectedImgType) => void;
+  handleColorSelect: (value: SelectedImageType) => void;
+  selectedImage: SelectedImageType;
 }
 
 const ProductImage: React.FC<ProductImageProps> = ({
-  cartProduct,
   product,
   handleColorSelect,
+  selectedImage,
 }) => {
+  console.log(product);
   return (
     <div className="grid grid-cols-6 gap-2 h-full max-h-[500px] min-h-[300px] sm:min-h-[400px]">
       <div className="flex-col items-center justify-center gap- cursor-pointer border h-full max-h-[500px] min-h-[300px] sm:min-h-[400px]">
-        {product.images.map((image: SelectedImgType) => {
+        {product.images.map((image: SelectedImageType) => {
           return (
             <div
-              key={image.color}
+              key={image.image}
               onClick={() => handleColorSelect(image)}
               className={`relative w-[80%] aspect-square rounded border-teal-300 my-2 ${
-                cartProduct.selectedImg.color === image.color
+                selectedImage.image === image.image
                   ? "border-[1.5px]"
                   : "border-none"
               }`}
             >
               <Image
                 src={image.image}
-                alt={image.color}
+                alt={image.image}
                 fill
                 className="object-contain"
               />
@@ -45,8 +46,8 @@ const ProductImage: React.FC<ProductImageProps> = ({
         <Image
           fill
           className="w-full h-full object-contain  max-h-[500px] min-h-[300px] sm:min-h-[400px]"
-          src={cartProduct.selectedImg.image}
-          alt={cartProduct.name}
+          src={selectedImage.image}
+          alt={selectedImage.image}
         />
       </div>
     </div>

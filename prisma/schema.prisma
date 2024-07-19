@@ -57,15 +57,16 @@ enum PaymentType {
 }
 
 model Product {
-    id          String   @id @default(auto()) @map("_id") @db.ObjectId
-    name        String
-    description String
-    price       Float
-    brand       String
-    category    String
-    inStock     Boolean
-    images      Image[]
-    reviews     Review[]
+    id             String   @id @default(auto()) @map("_id") @db.ObjectId
+    name           String
+    description    String
+    specifications String[]
+    price          Float
+    brand          String
+    category       String
+    inStock        Boolean
+    images         Image[]
+    reviews        Review[]
 }
 
 model Review {
@@ -101,15 +102,13 @@ type CartProductType {
     description String
     category    String
     brand       String
-    selectedImg Image
     quantity    Int
     price       Float
 }
 
 type Image {
-    color     String
-    colorCode String
-    image     String
+    image      String
+    imageIndex String
 }
 
 type Address {

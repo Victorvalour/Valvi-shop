@@ -8,7 +8,7 @@ import SelectColor from "@/app/components/inputs/SelectColor";
 import TextArea from "@/app/components/inputs/TextArea";
 import Input from "@/app/components/inputs/input";
 import { categories } from "@/utils/Categories";
-import { colors } from "@/utils/Colors";
+import { imageSelect } from "@/utils/Images";
 import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -23,14 +23,11 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 export type ImageType = {
-  color: string;
-  colorCode: string;
   image: File | null;
+  imageIndex: string;
 };
 
 export type UploadedImageType = {
-  color: string;
-  colorCode: string;
   image: string;
 };
 
@@ -197,7 +194,7 @@ const AddProductForm = () => {
     setImages((prev) => {
       if (prev) {
         const filteredImages = prev.filter(
-          (item) => item.color !== value.color
+          (item) => item.image !== value.image
         );
 
         return filteredImages;
@@ -284,7 +281,7 @@ const AddProductForm = () => {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          {colors.map((item, index) => {
+          {imageSelect.map((item, index) => {
             return (
               <SelectColor
                 key={index}

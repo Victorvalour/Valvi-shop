@@ -5,6 +5,7 @@ export const products = [
     id: "64a654593e91b8e73a351e9b",
     name: "iphone 14",
     description: "Short description",
+    specifications: [],
     price: 2999,
     brand: "apple",
     category: "Phone",

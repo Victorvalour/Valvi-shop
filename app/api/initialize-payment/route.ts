@@ -7,8 +7,6 @@ import { error } from "console";
 import { PaymentType } from "@prisma/client";
 
 
-
-
 const calculateOrderAmount = (items: CartProductType[]) => {
     const totalPrice = items.reduce((acc, item) => {
 const itemTotal = item.price * item.quantity

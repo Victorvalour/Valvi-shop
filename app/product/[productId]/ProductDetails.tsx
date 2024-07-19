@@ -20,14 +20,12 @@ export type CartProductType = {
   description: string;
   category: string;
   brand: string;
-  selectedImg: SelectedImgType;
+  image: string;
   quantity: number;
   price: number;
 };
 
-export type SelectedImgType = {
-  color: string;
-  colorCode: string;
+export type SelectedImageType = {
   image: string;
 };
 
@@ -44,9 +42,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     description: product.description,
     category: product.category,
     brand: product.brand,
-    selectedImg: { ...product.images[0] },
+    image: product.images[0],
     quantity: 1,
     price: product.price,
+  });
+
+  const [selectedImage, setSelectedImage] = useState<SelectedImageType>({
+    ...product.images[0],
   });
 
   const router = useRouter();
@@ -72,12 +74,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     product.reviews.length;
 
   const handleColorSelect = useCallback(
-    (value: SelectedImgType) => {
-      setCartProduct((prev) => {
-        return { ...prev, selectedImg: value };
-      });
+    (value: SelectedImageType) => {
+      setSelectedImage(value);
     },
-    [cartProduct.selectedImg]
+    [selectedImage]
   );
 
   const handleQtyIncrease = useCallback(() => {
@@ -103,7 +103,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
       <ProductImage
-        cartProduct={cartProduct}
+        selectedImage={selectedImage}
         product={product}
         handleColorSelect={handleColorSelect}
       />
@@ -154,11 +154,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           </>
         ) : (
           <>
-            <SetColor
+            {/*  <SetColor
               cartProduct={cartProduct}
               images={product.images}
               handleColorSelect={handleColorSelect}
-            />
+            /> */}
             <Horizontal />
             <SetQuantity
               cartProduct={cartProduct}

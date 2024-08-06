@@ -95,7 +95,7 @@ const params = {
     } catch (error) {
       console.error(error);
       throw error; // Re-throw the error if you need to handle it elsewhere
-      } 
+      }
     }
   }
 
@@ -105,5 +105,4 @@ catch(error)  {
     return NextResponse.json({error: "Internal server errrr"})
   };
 
-  
     }

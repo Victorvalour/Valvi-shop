@@ -26,8 +26,8 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
         <Link href={`/product/${item.id}`}>
           <div className="relative w-[70px] aspect-square">
             <Image
-              src={item.image}
-              alt={item.image}
+              src={item.image.image}
+              alt={item.image.imageIndex}
               fill
               className="object-contain"
             />

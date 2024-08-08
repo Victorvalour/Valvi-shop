@@ -20,13 +20,14 @@ export type CartProductType = {
   description: string;
   category: string;
   brand: string;
-  image: string;
+  image: SelectedImageType;
   quantity: number;
   price: number;
 };
 
 export type SelectedImageType = {
   image: string;
+  imageIndex: string
 };
 
 const Horizontal = () => {

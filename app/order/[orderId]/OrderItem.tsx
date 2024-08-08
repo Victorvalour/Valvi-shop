@@ -9,6 +9,8 @@ interface OrderItemProps {
   item: CartProductType;
 }
 
+
+
 const OrderItem: React.FC<OrderItemProps> = ({ item }) => {
   console.log(item);
   return (
@@ -24,7 +26,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ item }) => {
         </div>
         <div className="flex flex-col gap-1">
           <div>{truncateText(item.name)}</div>
-          <div>{item.selectedImg.color}</div>
+          <div>{item.selectedImg.imageIndex}</div>
         </div>
       </div>
 

@@ -105,7 +105,7 @@ const CheckoutClient = () => {
         
           handleClearCart();
           console.log(responseData.data.authorization_url);
-          window.location.href = data.data.authorization_url;
+          window.location.href = responseData.data.authorization_url;
 
         }
      

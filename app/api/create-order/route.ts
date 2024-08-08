@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     const body = await request.json()
     const {items, address} = body
     const total = calculateOrderAmount(items) * 100
-    const {callback_url} = body
+   
 
     const  generateUniqueDateString = () => {
       var now = new Date();
@@ -72,11 +72,7 @@ export async function POST(request: Request) {
     
         //create the intent
 //make the Api call
-const params = {
-    email: currentUser.email,
-    amount: total,
-    callback_url:  callback_url
-  };
+
   
   const options = {
     headers: {

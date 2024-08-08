@@ -104,7 +104,11 @@ const params = {
   
     } catch (error) {
       console.error(error);
-      throw error; // Re-throw the error if you need to handle it elsewhere
+      console.error('Error Creating order:', error);
+      return NextResponse.json(
+        { error: "Internal server error" },
+        { status: 500 } 
+      );
       } 
     
   }

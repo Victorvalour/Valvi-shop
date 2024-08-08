@@ -66,15 +66,17 @@ const CheckoutClient = () => {
     resolver: zodResolver(FormSchema),
   }); */
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async(data) => {
     // toast(JSON.stringify(data));
     console.log(data);
 
     if (cartProducts && data.paymentMethod === "pay-now") {
+
+      try {
       setLoading(true);
       setError(false);
 
-      fetch("/api/initialize-payment", {
+     const res = await fetch("/api/initialize-payment", {
         method: "POST",
         headers: { "Content-Type": "Application/json" },
         body: JSON.stringify({
@@ -89,31 +91,38 @@ const CheckoutClient = () => {
           },
         }),
       })
-        .then((res) => {
-          setLoading(false);
+        
+          
           if (res.status === 401) {
-            return router.push("/login");
+            router.push("/login");
+            return
           }
-
-          return res.json();
-        })
-        .then((data) => {
+          if (!res.ok) {
+            throw new Error("Failed to create order"); 
+          }
+        const responseData =  await res.json();
+        
+        
           handleClearCart();
-          console.log(data.data.authorization_url);
+          console.log(responseData.data.authorization_url);
           window.location.href = data.data.authorization_url;
 
-          return null;
-        })
-        .catch((error) => {
+        }
+     
+        catch (error)  {
           setError(true);
           console.log("Error", error);
           toast.error("Something went wrong");
-        });
+        } finally {
+          setLoading(false);
+        }
     } else if (cartProducts && data.paymentMethod === "pay-on-delivery") {
+
+      try {
       setError(false);
       setLoading(true);
 
-      fetch("/api/create-order", {
+      const res = await fetch("/api/create-order", {
         method: "POST",
         headers: { "Content-Type": "Application/json" },
         body: JSON.stringify({
@@ -127,29 +136,35 @@ const CheckoutClient = () => {
           },
         }),
       })
-        .then((res) => {
-          setLoading(false);
+        
+          
           if (res.status === 401) {
             return router.push("/login");
           }
+          if (!res.ok) {
+            throw new Error("Failed to create order"); 
+          }
 
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
+       const responseData = await res.json();
+    
+        
+          console.log(responseData);
           toast.success("Your order has been placed successfully.");
           setLoading(false);
           handleClearCart();
           setIsPaymentSuccessful(true);
-          return null;
-        })
-        .catch((error) => {
+         
+      
+        } catch (error) {
           setError(true);
           console.log("Error", error);
           toast.error("Something went wrong");
-        });
+        } finally {
+          setLoading(false);
+        }
     }
   };
+
   useEffect(() => {
     const reference = searchParams.get("reference");
     if (reference) {

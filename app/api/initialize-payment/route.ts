@@ -93,8 +93,9 @@ const params = {
   
   
     } catch (error) {
-      console.error(error);
-      throw error; // Re-throw the error if you need to handle it elsewhere
+      console.error("Error during Paystack transaction initialization:", error);
+      return NextResponse.json({ error: "Failed to initialize payment" }, { status: 500 });
+    
       }
     }
   }

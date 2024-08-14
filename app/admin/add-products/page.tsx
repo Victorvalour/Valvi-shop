@@ -7,7 +7,7 @@ import NullData from "@/app/components/NullData";
 const AddProducts = async () => {
   const currentUser = await getCurrentUser();
 
-  if (!currentUser || currentUser.role !== "VENDOR" || "ADMIN") {
+  if (!currentUser || currentUser.role !== "VENDOR" && currentUser.role !== "ADMIN") {
     return <NullData title="Oops! Access Denied" />;
   }
   return (

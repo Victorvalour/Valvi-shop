@@ -9,7 +9,7 @@ import { Suspense } from "react";
 import DottedLoadingSpinner from "../loading-spinner/SpinnerDotted";
 import SearchBar from "./SearchBar";
 import Image from "next/image";
-import Logo from "../../icon.svg";
+import Logo from "../../Arihia-png.png";
 
 const redressed = Redressed({ subsets: ["latin"], weight: ["400"] });
 
@@ -17,7 +17,7 @@ const NavBar = async () => {
   const currentUser = await getCurrentUser();
 
   return (
-    <div className="sticky top-0 w-full bg-[#c8fdd2] z-30 shadow-sm">
+    <div className="sticky top-0 w-full bg-[#1db499] z-30 shadow-sm">
       <div className="py-4 border-b-[1px]">
         <Container>
           <div className="flex items-center justify-between gap-3 md:gap-0">
@@ -28,10 +28,11 @@ const NavBar = async () => {
               <div className="flex items-center gap-2">
                 <Image
                   src={Logo}
+                  width={200}
                   alt="Logo"
-                  className="object-contain w-[40px] h-[40px]"
+                  className="object-contain w-[120px] h-[50px]"
                 />
-                <span>VALVITEK</span>
+                <span></span>
               </div>
             </Link>
 

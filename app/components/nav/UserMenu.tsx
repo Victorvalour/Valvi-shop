@@ -24,7 +24,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       <div className="relative z-30">
         <div
           onClick={toggleOpen}
-          className="p-2 border-[1px] border-slate-400 flex flex-row items-center gap-1 rounded-full cursor-pointer hover:shadow-md transition text-primaryColor"
+          className="p-2 border-[1px] border-slate-400 flex flex-row items-center gap-1 rounded-full cursor-pointer hover:shadow-md transition text-secondaryColor2"
         >
           <Avatar src={currentUser?.image} />
           <AiFillCaretDown />
@@ -40,6 +40,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 </Link>
                 {currentUser.role === "ADMIN" && (
                   <Link href="/admin">
+                    <MenuItem onClick={toggleOpen}>Admin Dashboard</MenuItem>
+                  </Link>
+                )}
+                  {currentUser.role === "VENDOR" && (
+                  <Link href="/admin/add-products">
                     <MenuItem onClick={toggleOpen}>Admin Dashboard</MenuItem>
                   </Link>
                 )}

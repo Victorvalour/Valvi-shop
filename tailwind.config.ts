@@ -29,15 +29,15 @@ const config = {
           foreground: "hsl(var(--primary-foreground))",
         },
         primaryColor: {
-          DEFAULT: "#0d6b09",
+          DEFAULT: "#1db499",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondaryColor: {
-          DEFAULT: "#47bf43",
+          DEFAULT: "#256e60",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondaryColor2: {
-          DEFAULT: "#87f283",
+          DEFAULT: "#e7d000",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {

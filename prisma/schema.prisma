@@ -27,6 +27,7 @@ model User {
 enum Role {
     USER
     ADMIN
+    VENDOR
 }
 
 model Account {

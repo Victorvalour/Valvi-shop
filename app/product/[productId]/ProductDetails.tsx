@@ -185,7 +185,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <ul>
         { 
       product.specifications.map((spec: SpecType) => 
-        <li className="list-disc">{spec.spec}</li>
+        <li key={spec.spec} className="list-disc">{spec.spec}</li>
      )  
       }
       </ul>

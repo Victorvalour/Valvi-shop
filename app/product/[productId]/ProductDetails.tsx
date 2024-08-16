@@ -180,6 +180,16 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           </>
         )}
       </div>
+      <div>
+        <p  className="font-semibold">Specifications</p>
+        <ul>
+        { 
+      product.specifications.map((spec: SpecType) => 
+        <li className="list-disc">{spec.spec}</li>
+     )  
+      }
+      </ul>
+      </div>
     </div>
   );
 };

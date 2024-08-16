@@ -61,7 +61,7 @@ model Product {
     id             String   @id @default(auto()) @map("_id") @db.ObjectId
     name           String
     description    String
-    specifications String[]
+    specifications SpecType[]
     price          Float
     brand          String
     category       String
@@ -69,6 +69,8 @@ model Product {
     images         Image[]
     reviews        Review[]
 }
+
+
 
 model Review {
     id          String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -101,6 +103,7 @@ type CartProductType {
     id          String
     name        String
     description String
+    specifications SpecType[]
     category    String
     brand       String
     image       Image
@@ -108,6 +111,9 @@ type CartProductType {
     price       Float
 }
 
+type  SpecType  {
+  spec String
+}
 type Image {
     image      String
     imageIndex String

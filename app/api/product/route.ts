@@ -13,13 +13,13 @@ return NextResponse.error()
     }
 
     const body = await request.json()
-    const {name, description, price, brand, category, inStock, images} = body
+    const {name, description, specifications, price, brand, category, inStock, images} = body
 
    
 
     const product = await prisma.product.create({
         data: {
-        name, description, brand, category, inStock, images, price: parseFloat(price),}
+        name, description, specifications, brand, category, inStock, images, price: parseFloat(price),}
     })
 
     return NextResponse.json(product)

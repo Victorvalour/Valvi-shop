@@ -10,7 +10,7 @@ import Input from "@/app/components/inputs/input";
 import { categories } from "@/utils/Categories";
 import { imageSelect } from "@/utils/Images";
 import { useCallback, useEffect, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import {
   getDownloadURL,
@@ -26,7 +26,10 @@ export type ImageType = {
   image: File | null;
   imageIndex: string;
 };
-
+export type SpecType = {
+  spec: string | null;
+  specIndex: string;
+};
 export type UploadedImageType = {
   image: string;
 };
@@ -37,8 +40,14 @@ const AddProductForm = () => {
   const [images, setImages] = useState<ImageType[] | null>();
   const [isProductCreated, setIsProductCreated] = useState(false);
 
+
+
+
+
+
   const {
     register,
+    control,
     handleSubmit,
     setValue,
     watch,
@@ -48,6 +57,7 @@ const AddProductForm = () => {
     defaultValues: {
       name: "",
       description: "",
+      specifications: [],
       brand: "",
       category: "",
       inStock: false,
@@ -56,8 +66,24 @@ const AddProductForm = () => {
     },
   });
 
+  const { fields, append, remove } = useFieldArray({
+    control, // from useForm
+    name: "specifications", // This should match the field name in the defaultValues
+  });
+
+  const addSpecification = () => {
+    if (fields.length < 8) {
+      append({ spec: "" });
+    }
+  };
+
+  const removeSpecification = (index: number) => {
+    remove(index);
+  };
+
   useEffect(() => {
     setCustomValue("images", images);
+  
   }, [images]);
 
   useEffect(() => {
@@ -240,6 +266,30 @@ const AddProductForm = () => {
         errors={errors}
         required
       />
+
+<div className="w-full flex flex-col gap-4">
+        <div className="font-bold">Specifications</div>
+        {fields.map((field, index) => (
+          <div key={field.id} className="flex gap-2">
+         
+            <Input
+              id={`specifications.${index}.spec`}
+              label={`Specification Value ${index + 1}`}
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+            />
+            {index > 1 && (
+              <button type="button" onClick={() => removeSpecification(index)}>
+                Remove
+              </button>
+            )}
+          </div>
+        ))}
+        {fields.length < 8 && (
+          <button className="border-2 border-slate-400 p-2 border-dashed cursor-pointer text-sm font-normal text-slate-400 flex items-center justify-center" onClick={addSpecification}>Add more specs</button>
+        )}
+      </div>
 
       <CustomCheckBox
         id="inStock"

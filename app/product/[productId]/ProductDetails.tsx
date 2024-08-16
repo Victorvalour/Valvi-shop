@@ -13,11 +13,14 @@ import { MdCheckCircle } from "react-icons/md";
 interface ProductDetailsProps {
   product: any;
 }
-
+export type SpecType = {
+  spec: string
+};
 export type CartProductType = {
   id: string;
   name: string;
   description: string;
+  specifications?: SpecType[];
   category: string;
   brand: string;
   image: SelectedImageType;
@@ -41,6 +44,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     id: product.id,
     name: product.name,
     description: product.description,
+    specifications: product.specifications,
     category: product.category,
     brand: product.brand,
     image: product.images[0],
